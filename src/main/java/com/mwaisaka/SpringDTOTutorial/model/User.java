@@ -3,7 +3,7 @@ package com.mwaisaka.SpringDTOTutorial.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -13,6 +13,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     //No argument constructor (required by JPA)
     public User(){
@@ -30,6 +34,14 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public void setId(long id) {
@@ -68,7 +80,4 @@ public class User {
         this.password = password;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "location_id")
-    private Location location;
 }
